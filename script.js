@@ -90,6 +90,8 @@ const showBooks = (books) => {
 const createCard = (book) => {
   const div = document.createElement("div");
   div.classList.add("card");
+
+  // destructure all data from book.
   const { id, image, name, overview } = book;
   div.innerHTML = `
   <div class="image-container">
@@ -99,49 +101,54 @@ const createCard = (book) => {
     />
     <div class="button-container">
       <button onclick="addToWishlist('${ id }')" class="button"><i class="fa-solid fa-heart"></i></button>
-      <button onclick="AddToCart" class="button">Add To Cart</button>
+      <button onclick="addToCart('${ id }')" class="button">Add To Cart</button>
     </div>
   </div>
   <div class="info-container">
     <h1>${ name }</h1>
     <p>
-      ${ overview }
+      ${ overview.length < 50 ? overview : overview.slice(0, 50) }
     </p>
-  </div>
-
-`;
-
+  </div>`;
   return div;
 };
 
 showBooks(bookList);
 
-const addToCart = (id) => {
-  cart.push(id);
+// Add To cart function
+const addToCart = id => {
+  if (cart.indexOf(id) === -1) {
+    cart.push(id);
+  }
 };
 
-const addToWishlist = (id) => {
+
+// Display Add To cart function
+const displayCart = () => {
+  const cart = getCartItems();
+  const cartEl = document.getElementById("cart");
+  cartEl.innerHTML = "";
+
+  cart.forEach((book) => {
+    const div = createCard(book);
+    cartEl.appendChild(div);
+  });
+};
+
+//===> Wishlist function
+const addToWishlist = id => {
   if (wishlistItems.indexOf(id) === -1) {
     wishlistItems.push(id);
   }
 };
-
-const displayCart = () => {
-  const cart = getCartItems();
-  console.log(cart);
-
-  cart.forEach((book) => {
-    const div = createCard(book);
-    document.getElementById("cart").appendChild(div);
-  });
-};
-
+//===> Display Wishlist function
 const displayWishlist = () => {
   const wishlist = getWishlistItems();
-  console.log(wishlist);
+  const wishlistEl = document.getElementById("wishlist")
+  wishlistEl.innerHTML = '';
 
-  bookList.forEach((book) => {
+  wishlist.forEach((book) => {
     const div = createCard(book);
-    document.getElementById("wishlist").appendChild(div);
+    wishlistEl.appendChild(div);
   });
 };
