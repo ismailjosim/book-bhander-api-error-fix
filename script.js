@@ -58,26 +58,31 @@ const getCartItems = () => {
   return bookList.filter((book) => cart.includes(book.id.toString()));
 };
 
+//====> Toggle item
 const switchTab = (id) => {
   if (id === "container") {
+
     document.getElementById("container").style.display = "grid";
     document.getElementById("wishlist").style.display = "none";
     document.getElementById("cart").style.display = "none";
+
   } else if (id === "wishlist") {
+
     document.getElementById("wishlist").style.display = "grid";
     document.getElementById("container").style.display = "none";
     document.getElementById("cart").style.display = "none";
-
     displayWishlist();
+
   } else {
+
     document.getElementById("cart").style.display = "grid";
     document.getElementById("container").style.display = "none";
     document.getElementById("wishlist").style.display = "none";
-
     displayCart();
   }
 };
 
+//===>  show Book Items.
 const showBooks = (books) => {
   const bookContainer = document.getElementById("container");
 
@@ -86,11 +91,10 @@ const showBooks = (books) => {
     bookContainer.appendChild(div);
   });
 };
-
+//===>  Create Card.
 const createCard = (book) => {
   const div = document.createElement("div");
   div.classList.add("card");
-
   // destructure all data from book.
   const { id, image, name, overview } = book;
   div.innerHTML = `
@@ -115,7 +119,7 @@ const createCard = (book) => {
 
 showBooks(bookList);
 
-// Add To cart function
+//===> Add To cart function
 const addToCart = id => {
   if (cart.indexOf(id) === -1) {
     cart.push(id);
@@ -123,7 +127,7 @@ const addToCart = id => {
 };
 
 
-// Display Add To cart function
+//===> Display Add To cart function
 const displayCart = () => {
   const cart = getCartItems();
   const cartEl = document.getElementById("cart");
