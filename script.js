@@ -90,22 +90,20 @@ const showBooks = (books) => {
 const createCard = (book) => {
   const div = document.createElement("div");
   div.classList.add("card");
-
-  let overview = book.overview;
-
+  const { id, image, name, overview } = book;
   div.innerHTML = `
   <div class="image-container">
     <img
-      src="${ book.Image }"
+      src="${ image }"
       alt=""
     />
     <div class="button-container">
-      <button onclick="addToWishlist('${ book.id }')" class="button"><i class="fa-solid fa-heart"></i></button>
+      <button onclick="addToWishlist('${ id }')" class="button"><i class="fa-solid fa-heart"></i></button>
       <button onclick="AddToCart" class="button">Add To Cart</button>
     </div>
   </div>
   <div class="info-container">
-    <h1>${ book.name }</h1>
+    <h1>${ name }</h1>
     <p>
       ${ overview }
     </p>
